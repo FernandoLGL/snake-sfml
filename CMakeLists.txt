@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(project-name LANGUAGES CXX)
+project(snake LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -19,9 +19,8 @@ set(SOURCE
 	${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
 	)
 
-add_executable(project-name ${SOURCE})
+add_executable(snake ${SOURCE})
 
-target_include_directories(project-name PRIVATE ${PROJECT_SOURCE_DIR}/include)
+target_include_directories(snake PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
-#example for adding a static library "lib1.a" and another lib called "lib2"
-target_link_libraries(project-name PRIVATE ${PROJECT_SOURCE_DIR}/libs/lib1.a lib2)
+target_link_libraries(snake PRIVATE sfml-graphics sfml-window sfml-system sfml-network sfml-audio)
