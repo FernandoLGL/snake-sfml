@@ -1,7 +1,8 @@
 #include "Food.h"
 
-Food::Food(const float &x, const float &y, sf::RenderWindow &window, const float &size, const bool &eatable, const sf::Color &color)
-    : mX(x), mY(y), mEatable(eatable), mSize(size), mColor(color)
+Food::Food(const float &x, const float &y, const float &size, const sf::Color &color)
+    : sf::RectangleShape(sf::Vector2f(size,size))
 {
-
+    this->setPosition(x, y);
+    this->setFillColor(color);
 }

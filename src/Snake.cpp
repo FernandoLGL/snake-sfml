@@ -36,6 +36,6 @@ Snake::Snake(const float& x, const float& y, const float sizeOfSquare, const sf:
 
 void Snake::eat(Food &food) const{
 
-    food.mColor = sf::Color::Transparent;
+    food.setFillColor(sf::Color::Transparent);
 
 }

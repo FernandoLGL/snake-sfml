@@ -1,10 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <vector>
+#include "Constants.h"
 #include "Snake.h"
-
-constexpr int windowWidth = 800;
-constexpr int windowHeight = 600;
+#include "Food.h"
 
 int main() {
 
@@ -12,12 +11,13 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Snake!");
     window.setFramerateLimit(60);
 
+    Snake snake(400,300);
+    Food food(20,30);
+
     // Game loop
     while (window.isOpen()) {
         window.clear(sf::Color::Black);
         sf::Event event;
-
-        Snake snake(400,300);
 
         // just testing out Keyboard
         if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
@@ -31,6 +31,9 @@ int main() {
 
         // Drawing the whole snake
         snake.draw(window);
+
+        // Drawing food
+        window.draw(food);
 
         window.display();
     }

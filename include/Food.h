@@ -3,19 +3,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include "Constants.h"
 
-struct Food{
-    const float mX;
-    const float mY;
-    bool mEatable;
-    const float mSize;
-    sf::Color mColor;
+struct Food : public sf::RectangleShape{
 
-    Food(const float& x, const float& y, sf::RenderWindow& window, const float& size = 10.f, const bool& eatable = 1, const sf::Color& color = sf::Color::Cyan);
-
-private:
-
-    void draw(sf::RenderWindow& window) const;
+    Food(const float& x, const float& y, const float& size = blockSize, const sf::Color& color = sf::Color::Cyan);
 };
 
 #endif
