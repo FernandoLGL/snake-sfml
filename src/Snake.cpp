@@ -20,16 +20,16 @@ void Snake::draw(sf::RenderWindow& window) const{
         window.draw(bodyPart);
 }
 
-Snake::Snake(float x, float y, const float sizeOfSquare) : mSizeOfSquare(sizeOfSquare) {
+Snake::Snake(const float& x, const float& y, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor) {
         // reserving 10 spaces for the body beforehand to prevent copying
         mBody.reserve(10);
         for(int i = 0; i<4; ++i){
             //Adding a square in each position (the initial size of the snake is 5)
             mBody.emplace_back(sf::Vector2f(sizeOfSquare, sizeOfSquare));
             mBody[i].setPosition(x + (i+1)*sizeOfSquare, y);
-            mBody[i].setFillColor(sf::Color::Green);
+            mBody[i].setFillColor(bodyColor);
         }
         mHead = sf::RectangleShape(sf::Vector2f(sizeOfSquare, sizeOfSquare));
         mHead.setPosition(mBody[0].getPosition() - sf::Vector2f(sizeOfSquare,0));
-        mHead.setFillColor(sf::Color::Red);
+        mHead.setFillColor(headColor);
 }
