@@ -65,7 +65,11 @@ int main() {
         }
 
         snake.draw(window);
+        if(snake.isDead())
+            window.close();
         snake.continueMoving();
+
+        window.draw(food);
 
         window.display();
     }
