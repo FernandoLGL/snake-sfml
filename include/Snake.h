@@ -16,6 +16,7 @@ class Snake{
     std::vector<sf::RectangleShape> mBody;
     Direction mDirection;
     float mX, mY;
+    const float mSpeed;
 
 public:
     // operator++ should add another square to the body
@@ -52,7 +53,7 @@ public:
     bool isDead();
 
 public:
-    Snake(const float& x, const float& y, const float sizeOfSquare = blockSize, const sf::Color& headColor = sf::Color::Red, const sf::Color& bodyColor = sf::Color::Green);
+    Snake(const float& x, const float& y, const float& speed = 1.f, const float sizeOfSquare = 10.f, const sf::Color& headColor = sf::Color::Red, const sf::Color& bodyColor = sf::Color::Green);
 };
 
 #endif

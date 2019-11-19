@@ -4,8 +4,6 @@
 constexpr int windowWidth = 800;
 constexpr int windowHeight = 600;
 
-constexpr float blockSize = 10.f;
-
 enum class Direction{
     UP,
     DOWN,
