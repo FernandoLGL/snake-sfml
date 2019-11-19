@@ -14,7 +14,7 @@ class Snake{
     sf::Color mHeadColor;
     sf::Color mBodyColor;
     std::vector<sf::RectangleShape> mBody;
-    Direction direction;
+    Direction mDirection;
     float mX, mY;
 
 public:
@@ -33,6 +33,21 @@ public:
     void draw(sf::RenderWindow& window) const;
 
     void eat(Food& food) const;
+
+    void moveLeft();
+
+    void moveRight();
+
+    void moveUp();
+
+    void moveDown();
+
+    void continueMoving();
+
+public:
+    const Direction& getDirection(){
+        return mDirection;
+    }
 
 public:
     Snake(const float& x, const float& y, const float sizeOfSquare = blockSize, const sf::Color& headColor = sf::Color::Red, const sf::Color& bodyColor = sf::Color::Green);

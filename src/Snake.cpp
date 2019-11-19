@@ -20,22 +20,61 @@ void Snake::draw(sf::RenderWindow& window) const{
         window.draw(bodyPart);
 }
 
-Snake::Snake(const float& x, const float& y, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor) {
-        // reserving 10 spaces for the body beforehand to prevent copying
-        mBody.reserve(10);
-        for(int i = 0; i<4; ++i){
-            //Adding a square in each position (the initial size of the snake is 5)
-            mBody.emplace_back(sf::Vector2f(sizeOfSquare, sizeOfSquare));
-            mBody[i].setPosition(x + (i+1)*sizeOfSquare, y);
-            mBody[i].setFillColor(bodyColor);
-        }
-        mHead = sf::RectangleShape(sf::Vector2f(sizeOfSquare, sizeOfSquare));
-        mHead.setPosition(mBody[0].getPosition() - sf::Vector2f(sizeOfSquare,0));
-        mHead.setFillColor(headColor);
+Snake::Snake(const float& x, const float& y, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor), mDirection(Direction::LEFT) {
+    // reserving 10 spaces for the body beforehand to prevent copying
+    mBody.reserve(10);
+    for(int i = 0; i<4; ++i){
+        //Adding a square in each position (the initial size of the snake is 5)
+        mBody.emplace_back(sf::Vector2f(sizeOfSquare, sizeOfSquare));
+        mBody[i].setPosition(x + (i+1)*sizeOfSquare, y);
+        mBody[i].setFillColor(bodyColor);
+    }
+    mHead = sf::RectangleShape(sf::Vector2f(sizeOfSquare, sizeOfSquare));
+    mHead.setPosition(mBody[0].getPosition() - sf::Vector2f(sizeOfSquare,0));
+    mHead.setFillColor(headColor);
 }
 
 void Snake::eat(Food &food) const{
 
     food.setFillColor(sf::Color::Transparent);
 
+}
+
+void Snake::moveLeft()
+{
+    mHead.setPosition(mHead.getPosition().x - blockSize, mHead.getPosition().y);
+    mDirection = Direction::LEFT;
+}
+
+void Snake::moveRight(){
+    mHead.setPosition(mHead.getPosition().x + blockSize, mHead.getPosition().y);
+    mDirection = Direction::RIGHT;
+}
+
+void Snake::moveDown(){
+    mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y + blockSize);
+    mDirection = Direction::DOWN;
+}
+
+void Snake::moveUp(){
+    mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y - blockSize);
+    mDirection = Direction::UP;
+}
+
+void Snake::continueMoving()
+{
+    switch(mDirection){
+    case Direction::UP:
+        moveUp();
+        break;
+    case Direction::DOWN:
+        moveDown();
+        break;
+    case Direction::LEFT:
+        moveLeft();
+        break;
+    default:
+        moveRight();
+        break;
+    }
 }
