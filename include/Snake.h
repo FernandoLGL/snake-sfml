@@ -49,6 +49,8 @@ public:
         return mDirection;
     }
 
+    bool isDead();
+
 public:
     Snake(const float& x, const float& y, const float sizeOfSquare = blockSize, const sf::Color& headColor = sf::Color::Red, const sf::Color& bodyColor = sf::Color::Green);
 };

@@ -22,7 +22,8 @@ void Snake::draw(sf::RenderWindow& window) const{
 
 Snake::Snake(const float& x, const float& y, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor), mDirection(Direction::LEFT) {
     // reserving 10 spaces for the body beforehand to prevent copying
-    mBody.reserve(10);
+    // note the implicit conversion from float to integer
+    mBody.reserve(sizeOfSquare + 10);
     for(int i = 0; i<4; ++i){
         //Adding a square in each position (the initial size of the snake is 5)
         mBody.emplace_back(sf::Vector2f(sizeOfSquare, sizeOfSquare));
