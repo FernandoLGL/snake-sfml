@@ -1,17 +1,17 @@
 #include "Snake.h"
 
 Snake Snake::operator++(int dummy){
-        // dummy == 0 and it only occurs in postfix increment (I'm not allowing prefix increment)
-        // operator++ should add another square to the body
-        sf::Vector2f lastPosition = mBody.back().getPosition();
-        //adding the square itself
-        mBody.emplace_back(sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
-        //setting the position of the new square
-        mBody.back().setPosition(lastPosition.x + mSizeOfSquare, lastPosition.y);
-        //setting color
-        mBody.back().setFillColor(sf::Color::Green);
-        // returning the newly formed snake object
-        return *(this);
+    // dummy == 0 and it only occurs in postfix increment (I'm not allowing prefix increment)
+    // operator++ should add another square to the body
+    sf::Vector2f lastPosition = mBody.back().getPosition();
+    //adding the square itself
+    mBody.emplace_back(sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
+    //setting the position of the new square
+    mBody.back().setPosition(lastPosition.x + mSizeOfSquare, lastPosition.y);
+    //setting color
+    mBody.back().setFillColor(sf::Color::Green);
+    // returning the newly formed snake object
+    return *(this);
 }
 
 void Snake::draw(sf::RenderWindow& window) const{
