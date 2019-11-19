@@ -11,7 +11,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Snake!");
     window.setFramerateLimit(60);
 
-    Snake snake(400,300);
+    Snake snake(400,300,0.5);
     Food food(20,30);
 
     // Game loop
