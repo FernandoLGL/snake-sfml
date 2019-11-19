@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "Constants.h"
+#include "Food.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 
@@ -30,6 +31,8 @@ public:
     }
 
     void draw(sf::RenderWindow& window) const;
+
+    void eat(Food& food) const;
 
 public:
     Snake(const float& x, const float& y, const float sizeOfSquare = 10.f, const sf::Color& headColor = sf::Color::Red, const sf::Color& bodyColor = sf::Color::Green);

@@ -33,3 +33,9 @@ Snake::Snake(const float& x, const float& y, const float sizeOfSquare, const sf:
         mHead.setPosition(mBody[0].getPosition() - sf::Vector2f(sizeOfSquare,0));
         mHead.setFillColor(headColor);
 }
+
+void Snake::eat(Food &food) const{
+
+    food.mColor = sf::Color::Transparent;
+
+}
