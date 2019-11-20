@@ -33,12 +33,6 @@ Snake::Snake(const float& x, const float& y, const float& speed, const float siz
     mHead.setFillColor(headColor);
 }
 
-void Snake::eat(Food &food) const{
-
-    //food.setFillColor(sf::Color::Transparent);
-    food.respawn();
-}
-
 void Snake::move()
 {
     const sf::Vector2f lastHeadPosition = mHead.getPosition();
@@ -67,10 +61,13 @@ void Snake::move()
 bool Snake::isDead(){
     bool collides;
 
+    //The snake collides with a body part
     for (const auto& bodyPart : mBody){
             collides = mHead.getGlobalBounds().intersects(bodyPart.getGlobalBounds());
             if(collides)
                 return true;
     }
+
+    // The snake collides with borders
     return false;
 }

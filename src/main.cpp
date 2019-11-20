@@ -8,11 +8,25 @@
 int main() {
 
     // Game Window
-    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Snake!");
+    sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Snake!", sf::Style::Close | sf::Style::Titlebar);
     window.setFramerateLimit(60);
 
+    // Borders
+    sf::RectangleShape leftBorder(sf::Vector2f(borderSize, windowHeight));
+    leftBorder.setPosition(0,0);
+    leftBorder.setFillColor(borderColor);
+    sf::RectangleShape rightBorder(sf::Vector2f(borderSize, windowHeight));
+    rightBorder.setPosition(windowWidth-borderSize, 0);
+    leftBorder.setFillColor(borderColor);
+    sf::RectangleShape upBorder(sf::Vector2f(windowWidth, borderSize));
+    upBorder.setPosition(0,0);
+    upBorder.setFillColor(borderColor);
+    sf::RectangleShape downBorder(sf::Vector2f(windowWidth, borderSize));
+    downBorder.setPosition(0,windowHeight-borderSize);
+
     Snake snake(400,300,0.5);
-    Food food(20,30);
+    Food food;
+    food.spawn();
 
     // Game loop
     while (window.isOpen()) {
@@ -63,13 +77,29 @@ int main() {
             }
         }
 
+        // For testing spawn points
+        // food.spawn();
+
+        // Drawing borders
+        window.draw(leftBorder);
+        window.draw(rightBorder);
+        window.draw(upBorder);
+        window.draw(downBorder);
+
+        // if the snake has eaten the food
         if(snake.getHead().getGlobalBounds().intersects(food.getGlobalBounds())){
             snake++;
-            snake.eat(food);
+            food.spawn();
         }
 
         snake.draw(window);
-        if(snake.isDead())
+
+        // if the snake collides with itself or with the borders
+        if(snake.isDead()
+                || snake.getHead().getGlobalBounds().intersects(leftBorder.getGlobalBounds())
+                || snake.getHead().getGlobalBounds().intersects(rightBorder.getGlobalBounds())
+                || snake.getHead().getGlobalBounds().intersects(upBorder.getGlobalBounds())
+                || snake.getHead().getGlobalBounds().intersects(downBorder.getGlobalBounds()))
             window.close();
         snake.move();
 

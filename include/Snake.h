@@ -33,8 +33,6 @@ public:
 
     void draw(sf::RenderWindow& window) const;
 
-    void eat(Food& food) const;
-
     void move();
 
 public:
