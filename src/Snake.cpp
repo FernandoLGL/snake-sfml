@@ -21,17 +21,15 @@ void Snake::draw(sf::RenderWindow& window) const{
 }
 
 Snake::Snake(const float& x, const float& y, const float& speed, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor), mDirection(Direction::LEFT), mSpeed(speed) {
-    // reserving 10 spaces for the body beforehand to prevent copying
-    // note the implicit conversion from float to integer
-    mBody.reserve(sizeOfSquare + 10);
+    sf::RectangleShape temporaryVariable(sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
     for(int i = 0; i<4; ++i){
-        //Adding a square in each position (the initial size of the snake is 5)
-        mBody.emplace_back(sf::Vector2f(sizeOfSquare, sizeOfSquare));
-        mBody[i].setPosition(x + (i+1)*sizeOfSquare, y);
-        mBody[i].setFillColor(bodyColor);
+        temporaryVariable.setFillColor(bodyColor);
+        temporaryVariable.setPosition(x + (i+1)*sizeOfSquare, y);
+        mBody.emplace_back(temporaryVariable);
     }
     mHead = sf::RectangleShape(sf::Vector2f(sizeOfSquare, sizeOfSquare));
-    mHead.setPosition(mBody[0].getPosition() - sf::Vector2f(sizeOfSquare,0));
+    // *1.5 just for now
+    mHead.setPosition(mBody.front().getPosition() - sf::Vector2f(sizeOfSquare,0));
     mHead.setFillColor(headColor);
 }
 
@@ -43,24 +41,27 @@ void Snake::eat(Food &food) const{
 
 void Snake::move()
 {
-    // FIX
     const sf::Vector2f lastHeadPosition = mHead.getPosition();
     switch(mDirection){
     case Direction::UP:
         mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y - mSizeOfSquare*mSpeed);
+        mBody.front().setPosition(lastHeadPosition + sf::Vector2f(0,mSizeOfSquare/2));
         break;
     case Direction::DOWN:
-        mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y + mSizeOfSquare*mSpeed);
+    mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y + mSizeOfSquare*mSpeed);
+        mBody.front().setPosition(lastHeadPosition - sf::Vector2f(0,mSizeOfSquare/2));
         break;
     case Direction::LEFT:
-        mHead.setPosition(mHead.getPosition().x - mSizeOfSquare*mSpeed, mHead.getPosition().y);
+    mHead.setPosition(mHead.getPosition().x - mSizeOfSquare*mSpeed, mHead.getPosition().y);
+        mBody.front().setPosition(lastHeadPosition + sf::Vector2f(mSizeOfSquare/2,0));
         break;
     default:
-        mHead.setPosition(mHead.getPosition().x + mSizeOfSquare*mSpeed, mHead.getPosition().y);
+    mHead.setPosition(mHead.getPosition().x + mSizeOfSquare*mSpeed, mHead.getPosition().y);
+        mBody.front().setPosition(lastHeadPosition - sf::Vector2f(mSizeOfSquare/2,0));
         break;
     }
-    mBody.back().setPosition(lastHeadPosition - sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
-    std::swap(mBody[0], mBody.back());
+        mBody.insert(mBody.begin(), mBody.back());
+        mBody.pop_back();
 }
 
 bool Snake::isDead(){

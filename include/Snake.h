@@ -1,7 +1,7 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include <vector>
+#include <list>
 #include "Constants.h"
 #include "Food.h"
 #include <SFML/Graphics.hpp>
@@ -13,7 +13,7 @@ class Snake{
     sf::RectangleShape mHead;
     sf::Color mHeadColor;
     sf::Color mBodyColor;
-    std::vector<sf::RectangleShape> mBody;
+    std::list<sf::RectangleShape> mBody;
     Direction mDirection;
     float mX, mY;
     const float mSpeed;
@@ -27,7 +27,7 @@ public:
         return mHead;
     }
 
-    const std::vector<sf::RectangleShape>& getBody() const{
+    const std::list<sf::RectangleShape>& getBody() const{
         return mBody;
     }
 

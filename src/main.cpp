@@ -34,19 +34,27 @@ int main() {
                 switch(event.key.code){
                 case sf::Keyboard::Key::A:
                 case sf::Keyboard::Key::Left:
+                    if(snake.getDirection() == Direction::RIGHT)
+                        break;
                     snake.setDirection(Direction::LEFT);
                     break;
                 case sf::Keyboard::Key::Right:
                 case sf::Keyboard::Key::D:
+                    if(snake.getDirection() == Direction::LEFT)
+                        break;
                     snake.setDirection(Direction::RIGHT);
                     break;
 
                 case sf::Keyboard::Key::Up:
                 case sf::Keyboard::Key::W:
+                    if(snake.getDirection() == Direction::DOWN)
+                        break;
                     snake.setDirection(Direction::UP);
                     break;
                 case sf::Keyboard::Key::S:
                 case sf::Keyboard::Key::Down:
+                    if(snake.getDirection() == Direction::UP)
+                        break;
                     snake.setDirection(Direction::DOWN);
                     break;
                  default:
