@@ -36,12 +36,16 @@ public:
     void move();
 
 public:
-    const Direction& getDirection(){
+    const Direction& getDirection() const{
         return mDirection;
     }
 
     void setDirection(Direction  dir){
         mDirection = dir;
+    }
+
+    const int getBodySize() const{
+        return mBody.size();
     }
 
     bool isDead();

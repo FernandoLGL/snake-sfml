@@ -9,6 +9,8 @@ Food::Food(const float &x, const float &y, const float &size, const sf::Color &c
 }
 
 void Food::spawn(){
+    // Nothing stops the food from spawning in a body part location FOR NOW
+    // It also doesn't stop it from spawning on "Score" but I don't plan to stop it from doing that.
     std::srand(std::time(NULL));
     int randomNumber = std::rand();
     int randomX = (((randomNumber % windowWidth) > windowWidth/2) ? ((randomNumber % windowWidth) - 2*borderSize) : ((randomNumber % windowWidth) + 2*borderSize));

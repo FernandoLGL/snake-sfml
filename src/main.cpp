@@ -34,8 +34,8 @@ int main() {
         sf::Event event;
 
         // just testing out Keyboard
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
-            window.close();
+//        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+//            window.close();
 
         // event pending ?
         while (window.pollEvent(event)) {

@@ -22,6 +22,8 @@ void Snake::draw(sf::RenderWindow& window) const{
 
 Snake::Snake(const float& x, const float& y, const float& speed, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor), mDirection(Direction::LEFT), mSpeed(speed) {
     sf::RectangleShape temporaryVariable(sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
+
+    //snake's initial size is 4
     for(int i = 0; i<4; ++i){
         temporaryVariable.setFillColor(bodyColor);
         temporaryVariable.setPosition(x + (i+1)*sizeOfSquare, y);
