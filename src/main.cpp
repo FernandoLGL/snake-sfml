@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <vector>
 #include "Constants.h"
 #include "Snake.h"
 #include "Food.h"
