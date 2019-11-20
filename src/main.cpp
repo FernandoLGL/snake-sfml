@@ -64,6 +64,11 @@ int main() {
             }
         }
 
+        if(snake.getHead().getGlobalBounds().intersects(food.getGlobalBounds())){
+            snake++;
+            snake.eat(food);
+        }
+
         snake.draw(window);
         if(snake.isDead())
             window.close();

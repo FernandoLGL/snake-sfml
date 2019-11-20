@@ -37,8 +37,8 @@ Snake::Snake(const float& x, const float& y, const float& speed, const float siz
 
 void Snake::eat(Food &food) const{
 
-    food.setFillColor(sf::Color::Transparent);
-
+    //food.setFillColor(sf::Color::Transparent);
+    food.respawn();
 }
 
 // Just have to multiply/divide "mSizeOfSquare" to change the snake speed.
@@ -66,6 +66,8 @@ void Snake::moveUp(){
 
 void Snake::continueMoving()
 {
+    // FIX
+    const sf::Vector2f lastHeadPosition = mHead.getPosition();
     switch(mDirection){
     case Direction::UP:
         moveUp();
@@ -80,23 +82,16 @@ void Snake::continueMoving()
         moveRight();
         break;
     }
+    mBody.back().setPosition(lastHeadPosition - sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
 }
 
 bool Snake::isDead(){
-    const float headX = mHead.getPosition().x;
-    const float headY = mHead.getPosition().y;
-    float bodyPartX;
-    float bodyPartY;
+    bool collides;
 
     for (const auto& bodyPart : mBody){
-        bodyPartX = bodyPart.getPosition().x;
-        bodyPartY = bodyPart.getPosition().y;
-
-        // This still isn't perfect. There are cases where this doesn't work. Have to find out why.
-        if(headX <= bodyPartX + mSizeOfSquare && headX >= bodyPartX  // Horizontal coliding
-                    && headY <= bodyPartY + mSizeOfSquare && headY >= bodyPartY // Vertical coliding
-                )
-            return true;
+            collides = mHead.getGlobalBounds().intersects(bodyPart.getGlobalBounds());
+            if(collides)
+                return true;
     }
     return false;
 }
