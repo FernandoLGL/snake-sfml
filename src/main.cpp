@@ -27,6 +27,9 @@ int main() {
     Snake snake(400,300,0.5);
     Food food;
     food.spawn();
+    sf::Text scoreText;
+    sf::Font font;
+    font.loadFromFile("../fonts/GeosansLight.ttf");
 
     // Game loop
     while (window.isOpen()) {
@@ -77,6 +80,15 @@ int main() {
             }
         }
 
+        // Drawing score
+        // subtracted 4 because that's the defined initial snake body length
+        scoreText.setString("Score: " + std::to_string(snake.getBodySize() - 4));
+        scoreText.setPosition(borderSize + 5, borderSize + 5);
+        scoreText.setCharacterSize(20);
+        scoreText.setFillColor(sf::Color::White);
+        scoreText.setFont(font);
+        scoreText.setStyle(sf::Text::Bold);
+
         // For testing spawn points
         // food.spawn();
 
@@ -94,15 +106,38 @@ int main() {
 
         snake.draw(window);
 
+
+
+
         // if the snake collides with itself or with the borders
         if(snake.isDead()
                 || snake.getHead().getGlobalBounds().intersects(leftBorder.getGlobalBounds())
                 || snake.getHead().getGlobalBounds().intersects(rightBorder.getGlobalBounds())
                 || snake.getHead().getGlobalBounds().intersects(upBorder.getGlobalBounds())
-                || snake.getHead().getGlobalBounds().intersects(downBorder.getGlobalBounds()))
-            window.close();
+                || snake.getHead().getGlobalBounds().intersects(downBorder.getGlobalBounds())){
+
+            while (!(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))){
+                sf::Text gameOverText;
+                // Subtracting 4 because that's the initial snake's body size
+                gameOverText.setString("Game over!\nPress ENTER to quit\nScore: " + std::to_string(snake.getBodySize()-4));
+                gameOverText.setPosition(windowWidth/2, windowHeight/2);
+                gameOverText.setStyle(sf::Text::Bold);
+                gameOverText.setCharacterSize(20);
+                gameOverText.setFillColor(sf::Color::White);
+                gameOverText.setFont(font);
+                window.draw(gameOverText);
+                window.display();
+            }
+                window.close();
+
+        }
         snake.move();
 
+        // Drawing the score text lastly because I want it to be on top of anything else
+        // I'm also drawing it after checking if the snake is dead, which implies that the score won't be printed on the screen on game over
+        window.draw(scoreText);
+
+        // I don't want the food to be printed on the screen either when the game ends
         window.draw(food);
 
         window.display();
