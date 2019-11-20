@@ -9,6 +9,8 @@ int main() {
     // Game Window
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Snake!", sf::Style::Close | sf::Style::Titlebar);
     window.setFramerateLimit(60);
+    // initial window position relative to the desktop
+    window.setPosition(sf::Vector2i(50,50));
 
     // Borders
     sf::RectangleShape leftBorder(sf::Vector2f(borderSize, windowHeight));
