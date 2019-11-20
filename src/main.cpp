@@ -9,6 +9,8 @@ int main() {
     // Game Window
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Snake!", sf::Style::Close | sf::Style::Titlebar);
     window.setFramerateLimit(60);
+    // initial window position relative to the desktop
+    window.setPosition(sf::Vector2i(50,50));
 
     // Borders
     sf::RectangleShape leftBorder(sf::Vector2f(borderSize, windowHeight));
@@ -105,8 +107,7 @@ int main() {
 
         snake.draw(window);
 
-
-
+        window.draw(food);
 
         // if the snake collides with itself or with the borders
         if(snake.isDead()
@@ -135,9 +136,6 @@ int main() {
         // Drawing the score text lastly because I want it to be on top of anything else
         // I'm also drawing it after checking if the snake is dead, which implies that the score won't be printed on the screen on game over
         window.draw(scoreText);
-
-        // I don't want the food to be printed on the screen either when the game ends
-        window.draw(food);
 
         window.display();
     }
