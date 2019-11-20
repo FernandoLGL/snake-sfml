@@ -41,48 +41,26 @@ void Snake::eat(Food &food) const{
     food.respawn();
 }
 
-// Just have to multiply/divide "mSizeOfSquare" to change the snake speed.
-
-void Snake::moveLeft()
-{
-    mHead.setPosition(mHead.getPosition().x - mSizeOfSquare*mSpeed, mHead.getPosition().y);
-    mDirection = Direction::LEFT;
-}
-
-void Snake::moveRight(){
-    mHead.setPosition(mHead.getPosition().x + mSizeOfSquare*mSpeed, mHead.getPosition().y);
-    mDirection = Direction::RIGHT;
-}
-
-void Snake::moveDown(){
-    mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y + mSizeOfSquare*mSpeed);
-    mDirection = Direction::DOWN;
-}
-
-void Snake::moveUp(){
-    mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y - mSizeOfSquare*mSpeed);
-    mDirection = Direction::UP;
-}
-
-void Snake::continueMoving()
+void Snake::move()
 {
     // FIX
     const sf::Vector2f lastHeadPosition = mHead.getPosition();
     switch(mDirection){
     case Direction::UP:
-        moveUp();
+        mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y - mSizeOfSquare*mSpeed);
         break;
     case Direction::DOWN:
-        moveDown();
+        mHead.setPosition(mHead.getPosition().x, mHead.getPosition().y + mSizeOfSquare*mSpeed);
         break;
     case Direction::LEFT:
-        moveLeft();
+        mHead.setPosition(mHead.getPosition().x - mSizeOfSquare*mSpeed, mHead.getPosition().y);
         break;
     default:
-        moveRight();
+        mHead.setPosition(mHead.getPosition().x + mSizeOfSquare*mSpeed, mHead.getPosition().y);
         break;
     }
     mBody.back().setPosition(lastHeadPosition - sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
+    std::swap(mBody[0], mBody.back());
 }
 
 bool Snake::isDead(){

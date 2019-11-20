@@ -34,29 +34,20 @@ int main() {
                 switch(event.key.code){
                 case sf::Keyboard::Key::A:
                 case sf::Keyboard::Key::Left:
-                    // You can't move left or right if you're already moving left
-                    if(snake.getDirection() == Direction::LEFT || snake.getDirection() == Direction::RIGHT)
-                        break;
-                    snake.moveLeft();
+                    snake.setDirection(Direction::LEFT);
                     break;
                 case sf::Keyboard::Key::Right:
                 case sf::Keyboard::Key::D:
-                    if(snake.getDirection() == Direction::RIGHT || snake.getDirection() == Direction::LEFT)
-                        break;
-                    snake.moveRight();
+                    snake.setDirection(Direction::RIGHT);
                     break;
 
                 case sf::Keyboard::Key::Up:
                 case sf::Keyboard::Key::W:
-                    if(snake.getDirection() == Direction::UP || snake.getDirection() == Direction::DOWN)
-                        break;
-                    snake.moveUp();
+                    snake.setDirection(Direction::UP);
                     break;
                 case sf::Keyboard::Key::S:
                 case sf::Keyboard::Key::Down:
-                    if(snake.getDirection() == Direction::UP || snake.getDirection() == Direction::DOWN)
-                        break;
-                    snake.moveDown();
+                    snake.setDirection(Direction::DOWN);
                     break;
                  default:
                     break;
@@ -72,7 +63,7 @@ int main() {
         snake.draw(window);
         if(snake.isDead())
             window.close();
-        snake.continueMoving();
+        snake.move();
 
         window.draw(food);
 

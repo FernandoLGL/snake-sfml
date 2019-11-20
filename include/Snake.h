@@ -35,19 +35,15 @@ public:
 
     void eat(Food& food) const;
 
-    void moveLeft();
-
-    void moveRight();
-
-    void moveUp();
-
-    void moveDown();
-
-    void continueMoving();
+    void move();
 
 public:
     const Direction& getDirection(){
         return mDirection;
+    }
+
+    void setDirection(Direction  dir){
+        mDirection = dir;
     }
 
     bool isDead();
