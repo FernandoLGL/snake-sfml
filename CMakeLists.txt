@@ -26,3 +26,9 @@ add_executable(snake ${SOURCE})
 target_include_directories(snake PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
 target_link_libraries(snake PRIVATE sfml-graphics sfml-window sfml-system sfml-network sfml-audio)
+
+
+#Still trying to build libraries that will work properly
+#target_link_libraries(snake ${CMAKE_SOURCE_DIR}/libs/libsfml-audio-s.a ${CMAKE_SOURCE_DIR}/libs/libsfml-network-s.a ${CMAKE_SOURCE_DIR}/libs/libsfml-window-s.a ${CMAKE_SOURCE_DIR}/libs/libsfml-graphics-s.a ${CMAKE_SOURCE_DIR}/libs/libsfml-system-s.a GL X11 pthread Xext)
+
+#target_link_libraries(snake ${CMAKE_SOURCE_DIR}/libs/libsfml-window-s.a ${CMAKE_SOURCE_DIR}/libs/libsfml-graphics-s.a GL X11 pthread Xext)
