@@ -1,3 +1,4 @@
+#include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Constants.h"
@@ -5,7 +6,25 @@
 #include "Food.h"
 #include "Game.h"
 
-int main() {
+namespace
+{
+// Stores the directory where the binary is running from
+std::string binaryDir;
+}
+
+int main(int argc, char** argv) {
+	// First argument in `argv` is always the path to the executable/script/etc.
+	// Extract containing directory in order to find resources (fonts, textures etc)
+	if (argc > 0)
+	{
+		binaryDir = argv[0];
+#if defined(_WIN32) || defined(_WIN64)
+		char delim = '\\';
+#else
+		char delim = '/';
+#endif
+		binaryDir = binaryDir.substr(0, binaryDir.find_last_of(delim));
+	}
 
     // Game Window
     sf::RenderWindow window(sf::VideoMode(windowWidth, windowHeight), "Snake!", sf::Style::Close | sf::Style::Titlebar);
@@ -19,7 +38,9 @@ int main() {
     food.spawn();
     sf::Text scoreText;
     sf::Font font;
-    font.loadFromFile("../fonts/GeosansLight.ttf");
+	// Cannot rely on "working directory" - it could be anywhere! Resources are in a fixed location relative to the
+	// executable, which is what should be used instead.
+    font.loadFromFile(binaryDir + "/../fonts/GeosansLight.ttf");
 
     // Game loop
     while (window.isOpen()) {
