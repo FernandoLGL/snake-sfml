@@ -58,6 +58,7 @@ set(SOURCE
     src/main.cpp
     src/Snake.cpp
     src/Food.cpp
+    src/Game.cpp
 )
 
 # Prepend path to current dir to each entry in SOURCE
