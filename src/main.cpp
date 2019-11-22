@@ -3,6 +3,7 @@
 #include "Constants.h"
 #include "Snake.h"
 #include "Food.h"
+#include "Game.h"
 
 int main() {
 
@@ -12,20 +13,8 @@ int main() {
     // initial window position relative to the desktop
     window.setPosition(sf::Vector2i(50,50));
 
-    // Borders
-    sf::RectangleShape leftBorder(sf::Vector2f(borderSize, windowHeight));
-    leftBorder.setPosition(0,0);
-    leftBorder.setFillColor(borderColor);
-    sf::RectangleShape rightBorder(sf::Vector2f(borderSize, windowHeight));
-    rightBorder.setPosition(windowWidth-borderSize, 0);
-    leftBorder.setFillColor(borderColor);
-    sf::RectangleShape upBorder(sf::Vector2f(windowWidth, borderSize));
-    upBorder.setPosition(0,0);
-    upBorder.setFillColor(borderColor);
-    sf::RectangleShape downBorder(sf::Vector2f(windowWidth, borderSize));
-    downBorder.setPosition(0,windowHeight-borderSize);
-
-    Snake snake(400,300,0.5);
+    Game game;
+    Snake snake(400,300);
     Food food;
     food.spawn();
     sf::Text scoreText;
@@ -82,22 +71,14 @@ int main() {
         }
 
         // Drawing score
-        // subtracted 4 because that's the defined initial snake body length
-        scoreText.setString("Score: " + std::to_string(snake.getBodySize() - 4));
-        scoreText.setPosition(borderSize + 5, borderSize + 5);
-        scoreText.setCharacterSize(20);
-        scoreText.setFillColor(sf::Color::White);
-        scoreText.setFont(font);
-        scoreText.setStyle(sf::Text::Bold);
+        game.setupScore(scoreText, font, snake);
+        window.draw(scoreText);
 
         // For testing spawn points
         // food.spawn();
 
         // Drawing borders
-        window.draw(leftBorder);
-        window.draw(rightBorder);
-        window.draw(upBorder);
-        window.draw(downBorder);
+        game.drawBorders(window);
 
         // if the snake has eaten the food
         if(snake.getHead().getGlobalBounds().intersects(food.getGlobalBounds())){
@@ -111,20 +92,14 @@ int main() {
 
         // if the snake collides with itself or with the borders
         if(snake.isDead()
-                || snake.getHead().getGlobalBounds().intersects(leftBorder.getGlobalBounds())
-                || snake.getHead().getGlobalBounds().intersects(rightBorder.getGlobalBounds())
-                || snake.getHead().getGlobalBounds().intersects(upBorder.getGlobalBounds())
-                || snake.getHead().getGlobalBounds().intersects(downBorder.getGlobalBounds())){
+                || snake.getHead().getGlobalBounds().intersects(game.mLeftBorder.getGlobalBounds())
+                || snake.getHead().getGlobalBounds().intersects(game.mRightBorder.getGlobalBounds())
+                || snake.getHead().getGlobalBounds().intersects(game.mUpBorder.getGlobalBounds())
+                || snake.getHead().getGlobalBounds().intersects(game.mDownBorder.getGlobalBounds())){
 
             while (!(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))){
                 sf::Text gameOverText;
-                // Subtracting 4 because that's the initial snake's body size
-                gameOverText.setString("Game over!\nPress ENTER to quit\nScore: " + std::to_string(snake.getBodySize()-4));
-                gameOverText.setPosition(windowWidth/2, windowHeight/2);
-                gameOverText.setStyle(sf::Text::Bold);
-                gameOverText.setCharacterSize(20);
-                gameOverText.setFillColor(sf::Color::White);
-                gameOverText.setFont(font);
+                game.setupGameOver(gameOverText, font, snake);
                 window.draw(gameOverText);
                 window.display();
             }

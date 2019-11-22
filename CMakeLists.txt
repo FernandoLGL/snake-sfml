@@ -16,9 +16,10 @@ endif()
 
 set(SOURCE
         # add other files here
-	${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/Snake.cpp
         ${CMAKE_CURRENT_SOURCE_DIR}/src/Food.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/src/Game.cpp
         )
 
 add_executable(snake ${SOURCE})
