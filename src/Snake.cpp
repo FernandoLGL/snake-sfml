@@ -20,7 +20,8 @@ void Snake::draw(sf::RenderWindow& window) const{
         window.draw(bodyPart);
 }
 
-Snake::Snake(const float& x, const float& y, const float& speed, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor), mDirection(Direction::LEFT), mSpeed(speed) {
+// Note that I divided the given speed by 2, that's because it makes more sense to have the "default" speed as 1, but if you don't actually divide it by 2 (thus actually setting mSpeed as 0.5) it will actually be too fast.
+Snake::Snake(const float& x, const float& y, const float& speed, const float sizeOfSquare, const sf::Color& headColor, const sf::Color& bodyColor) : mSizeOfSquare(sizeOfSquare), mHeadColor(headColor), mBodyColor(bodyColor), mDirection(Direction::LEFT), mSpeed(speed/2) {
     sf::RectangleShape temporaryVariable(sf::Vector2f(mSizeOfSquare, mSizeOfSquare));
 
     //snake's initial size is 4
