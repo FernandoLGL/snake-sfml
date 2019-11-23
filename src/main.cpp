@@ -10,6 +10,9 @@ namespace
 {
 // Stores the directory where the binary is running from
 std::string binaryDir;
+
+//stores the delimiter
+char delim = '/';
 }
 
 int main(int argc, char** argv) {
@@ -20,8 +23,6 @@ int main(int argc, char** argv) {
 		binaryDir = argv[0];
 #if defined(_WIN32) || defined(_WIN64)
 		char delim = '\\';
-#else
-		char delim = '/';
 #endif
 		binaryDir = binaryDir.substr(0, binaryDir.find_last_of(delim));
 	}
@@ -40,7 +41,7 @@ int main(int argc, char** argv) {
     sf::Font font;
 	// Cannot rely on "working directory" - it could be anywhere! Resources are in a fixed location relative to the
 	// executable, which is what should be used instead.
-    font.loadFromFile(binaryDir + "/../fonts/GeosansLight.ttf");
+    font.loadFromFile(binaryDir + delim + ".." + delim + "fonts" + delim + "GeosansLight.ttf");
 
     // Game loop
     while (window.isOpen()) {
