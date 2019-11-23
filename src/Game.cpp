@@ -6,19 +6,21 @@ Game::Game(){
     // left border
     mLeftBorder = sf::RectangleShape(sf::Vector2f(borderSize, windowHeight));
     mLeftBorder.setPosition(0,0);
-    mLeftBorder.setFillColor(borderColor);
+    // For some reason this doesn't work
+    //mLeftBorder.setFillColor(borderColor);
+    mLeftBorder.setFillColor(sf::Color::White);
     //right border
     mRightBorder = sf::RectangleShape(sf::Vector2f(borderSize, windowHeight));
     mRightBorder.setPosition(windowWidth-borderSize, 0);
-    mRightBorder.setFillColor(borderColor);
+    mRightBorder.setFillColor(sf::Color::White);
     //up border
     mUpBorder = sf::RectangleShape(sf::Vector2f(windowWidth, borderSize));
     mUpBorder.setPosition(0,0);
-    mUpBorder.setFillColor(borderColor);
+    mUpBorder.setFillColor(sf::Color::White);
     //down border
     mDownBorder = sf::RectangleShape(sf::Vector2f(windowWidth, borderSize));
     mDownBorder.setPosition(0,windowHeight-borderSize);
-    mDownBorder.setFillColor(borderColor);
+    mDownBorder.setFillColor(sf::Color::White);
 
 }
 
