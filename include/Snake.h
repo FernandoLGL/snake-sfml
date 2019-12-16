@@ -23,11 +23,11 @@ public:
     // This is only the postfix increment, since it takes an int as an argument
     Snake operator++(int dummy);
 
-    const sf::RectangleShape& getHead() const{
+    const sf::RectangleShape getHead() const{
         return mHead;
     }
 
-    const std::list<sf::RectangleShape>& getBody() const{
+    const std::list<sf::RectangleShape> getBody() const{
         return mBody;
     }
 
@@ -36,7 +36,7 @@ public:
     void move();
 
 public:
-    const Direction& getDirection() const{
+    Direction getDirection() const{
         return mDirection;
     }
 
@@ -44,7 +44,7 @@ public:
         mDirection = dir;
     }
 
-    const int getBodySize() const{
+    int getBodySize() const{
         return mBody.size();
     }
 
