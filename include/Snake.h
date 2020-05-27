@@ -1,57 +1,54 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include <list>
-#include "Constants.h"
-#include "Food.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <list>
 
-class Snake{
-    // size of each snake body(including the head) square
-    const float mSizeOfSquare;
-    sf::RectangleShape mHead;
-    sf::Color mHeadColor;
-    sf::Color mBodyColor;
-    std::list<sf::RectangleShape> mBody;
-    Direction mDirection;
-    float mX, mY;
-    const float mSpeed;
+#include "Constants.h"
+#include "Food.h"
 
-public:
-    // operator++ should add another square to the body
-    // This is only the postfix increment, since it takes an int as an argument
-    Snake operator++(int dummy);
+class Snake
+{
+  // size of each snake body(including the head) square
+  const float mSizeOfSquare;
+  sf::RectangleShape mHead;
+  sf::Color mHeadColor;
+  sf::Color mBodyColor;
+  std::list<sf::RectangleShape> mBody;
+  Direction mDirection;
+  float mX, mY;
+  const float mSpeed;
 
-    const sf::RectangleShape getHead() const{
-        return mHead;
-    }
+  public:
+  // operator++ should add another square to the body
+  // This is only the postfix increment, since it takes an int as an argument
+  Snake operator++(int dummy);
 
-    const std::list<sf::RectangleShape> getBody() const{
-        return mBody;
-    }
+  const sf::RectangleShape getHead() const { return mHead; }
 
-    void draw(sf::RenderWindow& window) const;
+  const std::list<sf::RectangleShape> getBody() const { return mBody; }
 
-    void move();
+  void draw(sf::RenderWindow& window) const;
 
-public:
-    Direction getDirection() const{
-        return mDirection;
-    }
+  void move();
 
-    void setDirection(Direction  dir){
-        mDirection = dir;
-    }
+  public:
+  Direction getDirection() const { return mDirection; }
 
-    int getBodySize() const{
-        return mBody.size();
-    }
+  void setDirection(Direction dir) { mDirection = dir; }
 
-    bool isDead();
+  int getBodySize() const { return mBody.size(); }
 
-public:
-    Snake(const float& x, const float& y, const float& speed = 1.f, const float sizeOfSquare = 10.f, const sf::Color& headColor = sf::Color::Red, const sf::Color& bodyColor = sf::Color::Green);
+  bool isDead();
+
+  public:
+  Snake(const float& x,
+        const float& y,
+        const float& speed         = 1.f,
+        const float sizeOfSquare   = 10.f,
+        const sf::Color& headColor = sf::Color::Red,
+        const sf::Color& bodyColor = sf::Color::Green);
 };
 
 #endif
